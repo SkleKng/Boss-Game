@@ -53,5 +53,25 @@ namespace Boss_Game_2._0.Screens.Bosses.Attacks
         {
             isAttacking = false;
         }
+
+        public Rectangle getList(int x)
+        {
+            return projectiles[x].rectangle;
+        }
+
+        public int getProjectilesCount()
+        {
+            return projectiles.Count;
+        }
+
+        public void remove(int i)
+        {
+            projectiles.RemoveAt(i);
+        }
+
+        public void clear()
+        {
+            projectiles.Clear();
+        }
     }
 }

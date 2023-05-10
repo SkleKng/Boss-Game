@@ -12,8 +12,8 @@ namespace Boss_Game_2._0.Screens.Bosses
 
         public BossMenu(SpriteBatch spriteBatch) : base(spriteBatch)
         {
-            selection = 0;
             bosses = new BossScreen[0];
+            selection = 0;
         }
 
         public override void Update(GameTime gameTime)

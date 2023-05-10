@@ -72,13 +72,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Screens\Bosses\Attacks\BossAttack.cs" />
+    <Compile Include="Screens\Bosses\Attacks\RandomCircles.cs" />
+    <Compile Include="Screens\Bosses\Attacks\MovingCircles.cs" />
+    <Compile Include="Screens\Bosses\Attacks\TopBottom.cs" />
     <Compile Include="Screens\Bosses\Attacks\Spiral.cs" />
     <Compile Include="Screens\Bosses\BossScreen.cs" />
     <Compile Include="Screens\Bosses\Boss1Screen.cs" />
     <Compile Include="Screens\Bosses\BossMenu.cs" />
     <Compile Include="Screens\Bosses\Attacks\Projectile.cs" />
+    <Compile Include="Screens\Inventory.cs" />
     <Compile Include="Screens\MainMenu.cs" />
-    <Compile Include="Screens\Shop.cs" />
+    <Compile Include="Screens\Intro.cs" />
+    <Compile Include="Screens\StartScreen.cs" />
+    <Compile Include="Screens\User %28bad%29\Player.cs" />
+    <Compile Include="Screens\ShopMenu.cs" />
+    <Compile Include="Screens\SubMenu.cs" />
     <Compile Include="Screens\Quit.cs" />
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="Screens\ScreenManager.cs" />
@@ -124,4 +132,5 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
+  <ItemGroup />
 </Project>

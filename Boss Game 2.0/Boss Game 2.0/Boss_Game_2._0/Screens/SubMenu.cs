@@ -5,30 +5,27 @@ using System;
 
 namespace Boss_Game_2._0.Screens
 {
-    class MainMenu : Screen
-        /*
-         * Everything that has to do with the title screen
-         */
+    class SubMenu : Screen // This class was not made by me.
     {
-        int selection; // currently selected screen & used to calculate arrow position
+        int selection;
 
         TimeSpan timer;
         bool showSelectionUnderline;
         Color SelectionColor;
-
-        public MainMenu(SpriteBatch spriteBatch) : base(spriteBatch)
+        public SubMenu(SpriteBatch spriteBatch) : base(spriteBatch)
         {
             selection = 0;
             timer = new TimeSpan(0, 0, 0);
 
             SelectionColor = Color.Yellow;
             showSelectionUnderline = true;
+            this.spriteBatch = spriteBatch;
         }
 
         public override void Update(GameTime gameTime)
         {
             Game1.kb = Keyboard.GetState();
-            
+
             // Countdown until switch toggle selection underline visibility
             timer += gameTime.ElapsedGameTime;
             if (timer.Milliseconds >= 500)
@@ -42,28 +39,34 @@ namespace Boss_Game_2._0.Screens
                 selection = Math.Max(0, selection - 1);
                 showSelectionUnderline = true; // If change selection, always show underline again
             }
-            else if (Game1.IsKeyPressed(Keys.Down))
+            else if (Game1.IsKeyPressed( Keys.Down))
             {
                 selection = Math.Min(2, selection + 1);
                 showSelectionUnderline = true;
             }
-            else if (Game1.IsKeyPressed(Keys.Z))
+            else if (Game1.IsKeyPressed( Keys.Z))
             {
                 SelectionColor = Color.White;
-                ScreenManager.SetScreen(new Screen[] { ScreenManager.BossMenu, ScreenManager.SubMenu, ScreenManager.Quit }[selection]);
+                ScreenManager.SetScreen(new Screen[] { ScreenManager.ShopMenu, ScreenManager.Inventory, ScreenManager.Quit }[selection]); //placeholder for now
+            }
+            else if (Game1.IsKeyPressed( Keys.X))
+            {
+                SelectionColor = Color.White;
+                ScreenManager.SetScreen(ScreenManager.MainMenu);
             }
 
             Game1.UpdateOldKb();
+
         }
 
         public override void Draw()
         {
-            spriteBatch.Draw(TextureManager.MainMenu.Menu, Window, Color.White);
-            spriteBatch.Draw(TextureManager.Textures.RightArrow, new Rectangle(300, 500 + selection * 93, 32, 32), SelectionColor);
+            spriteBatch.Draw(TextureManager.SubMenu.Menu, Window, Color.White);
+            spriteBatch.Draw(TextureManager.Textures.RightArrow, new Rectangle(515, 70 + selection * 315, 32, 32), SelectionColor);
 
-            if (showSelectionUnderline)
+            if (showSelectionUnderline) ///fix selection Y
             {
-                spriteBatch.Draw(TextureManager.MainMenu.SelectionUnderline, new Rectangle(335, 550 + selection * 93, 136, 5), SelectionColor);
+                spriteBatch.Draw(TextureManager.MainMenu.SelectionUnderline, new Rectangle(550, 120 + selection * 315, 150, 5), SelectionColor); //underline
             }
         }
 
