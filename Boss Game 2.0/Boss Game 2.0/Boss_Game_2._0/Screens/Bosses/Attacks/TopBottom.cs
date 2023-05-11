@@ -17,13 +17,14 @@ namespace Boss_Game_2._0.Screens.Bosses.Attacks
 
         Random rng;
 
-        public TopBottom(SpriteBatch spriteBatch, int xPos, int yPos, float angSpacing, float angSpeed, int projectileSpeed, float xAccel, float yAccel, int projectileSize) : base(spriteBatch, projectileSpeed)
+        public TopBottom(SpriteBatch spriteBatch, int xPos, int yPos, float angSpacing, float angSpeed, int projectileSpeed, float xAccel, float yAccel, int projectileSize, int attackTime) : base(spriteBatch, projectileSpeed)
         {
             this.xPos = xPos; 
             this.yPos = yPos; 
             this.xAccel = xAccel;
             this.yAccel = yAccel;
             this.projectileSize = projectileSize;
+            this.attackTime = attackTime;
 
             rng = new Random();
         }

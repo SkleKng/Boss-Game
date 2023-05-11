@@ -54,16 +54,21 @@ namespace Boss_Game_2._0
             }                        
             if (iFrames == true)
             {
-                playerColor = new Color(playerColor.R, playerColor.G, playerColor.B, 0.6f);
+                playerColor = Color.Red * 0.5f;
                 iFramesTimer--;
 
                 if (iFramesTimer == 0)
                 {
                     iFrames = false;
                     iFramesTimer = 90;
-                    playerColor = new Color(playerColor.R, playerColor.G, playerColor.B);
+                    playerColor = Color.White;
                 }
             }
+
+            if(playerRect.X < 0) { playerRect.X = 0;  }
+            if(playerRect.X > 780) { playerRect.X = 780; }
+            if(playerRect.Y < 0) { playerRect.Y = 0; }
+            if(playerRect.Y > 780) { playerRect.Y = 780; }
 
         }
 
@@ -100,6 +105,16 @@ namespace Boss_Game_2._0
         public int GetHp()
         {
             return hp;
+        }
+
+        public void setX(int x)
+        {
+            playerRect.X = x;
+        }
+
+        public void setY(int y)
+        {
+            playerRect.Y = y;
         }
 
         public Rectangle Despawn()

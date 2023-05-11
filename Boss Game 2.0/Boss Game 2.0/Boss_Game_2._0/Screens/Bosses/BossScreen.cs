@@ -20,9 +20,7 @@ namespace Boss_Game_2._0.Screens.Bosses
 
         public BossScreen(SpriteBatch spriteBatch) : base(spriteBatch)
         {
-            player = new Player(new Rectangle(800 / 2 - 10, 600, 20, 20), 20,2, spriteBatch);
-            bossHP = 20;
-
+            player = new Player(new Rectangle(800 / 2 - 10, 600, 20, 20), 20, 2, spriteBatch);
             isPaused = false;
             timer = new TimeSpan(0, 0, 0);
             playerTurn = true;
@@ -70,18 +68,14 @@ namespace Boss_Game_2._0.Screens.Bosses
         }
 
         public override void Draw()
-        {
+        {   
+            spriteBatch.Draw(TextureManager.Bosses.Boss1.Boss, new Rectangle(325, 150, 150, 150), Color.White); // TODO: make a boss class that will have its own .Draw() method with this code
+            bossAttack.Draw();
+
             if (isPaused)
             {
-                bossAttack.Draw();
-                spriteBatch.Draw(TextureManager.Bosses.Boss1.Boss, new Rectangle(325, 150, 150, 150), Color.White); // TODO: make a boss class that will have its own .Draw() method with this code
                 spriteBatch.Draw(TextureManager.Bosses.PauseOverlay, Window, Color.White);
-                return;
             }
-            
-            bossAttack.Draw();
-            spriteBatch.Draw(TextureManager.Bosses.Boss1.Boss, new Rectangle(325, 150, 150, 150), Color.White); // TODO: make a boss class that will have its own .Draw() method with this code
-            player.DrawPlayer(spriteBatch);
         }
     }
 }

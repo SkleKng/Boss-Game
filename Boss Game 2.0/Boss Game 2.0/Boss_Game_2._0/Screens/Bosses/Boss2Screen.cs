@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Boss_Game_2._0.Screens.Bosses
 {
-    class Boss1Screen : BossScreen
+    class Boss2Screen : BossScreen
     {
         private Random rng;
 
@@ -16,7 +16,7 @@ namespace Boss_Game_2._0.Screens.Bosses
         private TimeSpan selectTimer;
         bool showSelectionUnderline;
 
-        public Boss1Screen(SpriteBatch spriteBatch) : base(spriteBatch)
+        public Boss2Screen(SpriteBatch spriteBatch) : base(spriteBatch)
         {
             bossAttack = new RandomCircles(spriteBatch, 0, 0, (float)Math.PI / 12, (float)Math.PI / 12, 250, 0, 0, 15, 10);
             rng = new Random();
@@ -45,7 +45,7 @@ namespace Boss_Game_2._0.Screens.Bosses
                     selectTimer = TimeSpan.Zero;
                 }
 
-                
+
                 if (kb.IsKeyDown(Keys.Right) && Game1.oldKb.IsKeyUp(Keys.Right))
                 {
                     playerSelection = Math.Min(2, playerSelection + 1);
@@ -83,7 +83,8 @@ namespace Boss_Game_2._0.Screens.Bosses
             {
                 player.Update();
                 bossAttack.Start();
-                if (timer.TotalSeconds >= bossAttack.attackTime) { // Switch back to player's turn
+                if (timer.TotalSeconds >= bossAttack.attackTime)
+                { // Switch back to player's turn
                     bossAttack.Stop();
                     bossAttack.clear();
                     timer = TimeSpan.Zero;
@@ -105,7 +106,7 @@ namespace Boss_Game_2._0.Screens.Bosses
                     bossAttack = new TopBottom(spriteBatch, 0, -0, (float)Math.PI / 15, (float)Math.PI / 2, 200, 0, 0, 15, 10);
                     break;
                 case 1:
-                    bossAttack = new Spiral(spriteBatch, 400, 200, (float)Math.PI / 31, (float)Math.PI / 2.2f, 250, 0, 0, 15, 10, 1);
+                    bossAttack = new Spiral(spriteBatch, 400, 200, (float)Math.PI / 33, (float)Math.PI / 1.5f, 250, 0, 0, 15, 10, 16);
                     break;
                 case 2:
                     bossAttack = new MovingCircles(spriteBatch, 0, 0, (float)Math.PI / 12, (float)Math.PI / 2, 250, 0, 0, 15, 7);
@@ -114,11 +115,12 @@ namespace Boss_Game_2._0.Screens.Bosses
                     bossAttack = new RandomCircles(spriteBatch, 0, 0, (float)Math.PI / 12, (float)Math.PI / 12, 250, 0, 0, 15, 10);
                     break;
             }
+            bossAttack = new Spiral(spriteBatch, 400, 200, (float)Math.PI / 33, (float)Math.PI / 1.5f, 250, 0, 0, 15, 10, 16);
         }
 
         public override void Draw()
         {
-            spriteBatch.Draw(TextureManager.Textures.Placeholder, Window, Color.White * 0.2f);
+            spriteBatch.Draw(TextureManager.Textures.Placeholder2, Window, Color.White * 0.2f);
 
             //DEBUG ONLY
             spriteBatch.DrawString(TextureManager.Message.Font, " Boss HP :" + bossHP.ToString() + "\n Player HP :" + base.player.GetHp() + "\n Heals used :" + base.player.GetHealsUsed().ToString(), new Vector2(0, 0), Color.White);
@@ -139,7 +141,7 @@ namespace Boss_Game_2._0.Screens.Bosses
             else
             {
                 player.DrawPlayer(spriteBatch);
-            }            
+            }
             base.Draw();
         }
     }

@@ -17,7 +17,7 @@ namespace Boss_Game_2._0.Screens.Bosses.Attacks
 
         Random rng;
 
-        public RandomCircles(SpriteBatch spriteBatch, int centerX, int centerY, float angSpacing, float angSpeed, int projectileSpeed, float xAccel, float yAccel, int projectileSize) : base(spriteBatch, projectileSpeed)
+        public RandomCircles(SpriteBatch spriteBatch, int centerX, int centerY, float angSpacing, float angSpeed, int projectileSpeed, float xAccel, float yAccel, int projectileSize, int attackTime) : base(spriteBatch, projectileSpeed)
         {
             this.angSpeed = angSpeed;
             this.angSpacing = angSpacing;
@@ -27,6 +27,7 @@ namespace Boss_Game_2._0.Screens.Bosses.Attacks
             this.xAccel = xAccel;
             this.yAccel = yAccel;
             this.projectileSize = projectileSize;
+            this.attackTime = attackTime;
 
             rng = new Random();
         }

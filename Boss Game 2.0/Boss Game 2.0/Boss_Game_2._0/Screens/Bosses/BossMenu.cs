@@ -19,7 +19,7 @@ namespace Boss_Game_2._0.Screens.Bosses
         public override void Update(GameTime gameTime)
         {
             Game1.kb = Keyboard.GetState();
-            bosses = new BossScreen[] { ScreenManager.Bosses.Boss1 };
+            bosses = new BossScreen[] { new Boss1Screen(spriteBatch), new Boss2Screen(spriteBatch) };
 
             if (Game1.IsKeyPressed(Keys.Left))
             {
@@ -27,7 +27,7 @@ namespace Boss_Game_2._0.Screens.Bosses
             }
             else if (Game1.IsKeyPressed(Keys.Right))
             {
-                selection = Math.Min(0, selection + 1);
+                selection = Math.Min(1, selection + 1);
             }
             else if (Game1.IsKeyPressed(Keys.Z))
             {
@@ -43,7 +43,17 @@ namespace Boss_Game_2._0.Screens.Bosses
 
         public override void Draw()
         {
-            spriteBatch.Draw(TextureManager.Textures.Placeholder, new Rectangle(248, 111, 320, 320), Color.White); // TODO: thumbnail for each boss
+            switch(selection)
+            {
+                case 0:
+                    spriteBatch.Draw(TextureManager.Textures.Placeholder, new Rectangle(248, 111, 320, 320), Color.White); // TODO: thumbnail for each boss
+                    break;
+                case 1:
+                    spriteBatch.Draw(TextureManager.Textures.Placeholder2, new Rectangle(248, 111, 320, 320), Color.White);
+                    break;
+
+            }
+            
             spriteBatch.Draw(TextureManager.BossMenu.Menu, Window, Color.White);
             spriteBatch.Draw(TextureManager.Textures.TextBox, new Rectangle(100, 475, 600, 200), Color.White);
 

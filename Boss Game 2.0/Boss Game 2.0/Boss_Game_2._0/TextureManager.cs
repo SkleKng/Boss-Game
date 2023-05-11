@@ -64,6 +64,7 @@ namespace Boss_Game_2._0
             Textures.RightArrow = content.Load<Texture2D>("Textures\\RightArrow");
             Textures.LeftArrow = content.Load<Texture2D>("Textures\\LeftArrow");
             Textures.Placeholder = content.Load<Texture2D>("Textures\\Placeholder");
+            Textures.Placeholder2 = content.Load<Texture2D>("Textures\\Placeholder2");
             Textures.TextBox = content.Load<Texture2D>("Textures\\TextBox");
 
             BossMenu.Menu = content.Load<Texture2D>("Textures\\BossMenu\\Menu");

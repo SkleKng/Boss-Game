@@ -76,6 +76,7 @@
     <Compile Include="Screens\Bosses\Attacks\MovingCircles.cs" />
     <Compile Include="Screens\Bosses\Attacks\TopBottom.cs" />
     <Compile Include="Screens\Bosses\Attacks\Spiral.cs" />
+    <Compile Include="Screens\Bosses\Boss2Screen.cs" />
     <Compile Include="Screens\Bosses\BossScreen.cs" />
     <Compile Include="Screens\Bosses\Boss1Screen.cs" />
     <Compile Include="Screens\Bosses\BossMenu.cs" />
