@@ -66,6 +66,7 @@ namespace Boss_Game_2._0
             Textures.Placeholder = content.Load<Texture2D>("Textures\\Placeholder");
             Textures.Placeholder2 = content.Load<Texture2D>("Textures\\Placeholder2");
             Textures.TextBox = content.Load<Texture2D>("Textures\\TextBox");
+            Textures.AttackBox = content.Load<Texture2D>("Textures\\maniabox");
 
             BossMenu.Menu = content.Load<Texture2D>("Textures\\BossMenu\\Menu");
 

@@ -11,10 +11,15 @@ namespace Boss_Game_2._0.Screens.Bosses
         private Random rng;
 
         private int playerSelection;
+        private bool isAttacking;
+
+        Rectangle[] timingZones;
 
         //gui shit
         private TimeSpan selectTimer;
         bool showSelectionUnderline;
+
+        Rectangle attackBarPos;
 
         public Boss1Screen(SpriteBatch spriteBatch) : base(spriteBatch)
         {
@@ -22,6 +27,9 @@ namespace Boss_Game_2._0.Screens.Bosses
             rng = new Random();
             bossHP = 20;
             playerSelection = 0;
+
+            timingZones = new Rectangle[] { new Rectangle(113, 610, 40, 80), new Rectangle(153, 610, 40, 80), new Rectangle(193, 610, 40, 80), new Rectangle(233, 610, 40, 80), new Rectangle(273, 610, 40, 80) };
+            attackBarPos = new Rectangle(700, 620, 20, 60);
         }
 
         public override void Update(GameTime gameTime)
@@ -36,7 +44,7 @@ namespace Boss_Game_2._0.Screens.Bosses
 
             timer += gameTime.ElapsedGameTime;
 
-            if (playerTurn)
+            if (playerTurn && !isAttacking)
             {
                 selectTimer += gameTime.ElapsedGameTime;
                 if (selectTimer.Milliseconds >= 500)
@@ -45,7 +53,6 @@ namespace Boss_Game_2._0.Screens.Bosses
                     selectTimer = TimeSpan.Zero;
                 }
 
-                
                 if (kb.IsKeyDown(Keys.Right) && Game1.oldKb.IsKeyUp(Keys.Right))
                 {
                     playerSelection = Math.Min(2, playerSelection + 1);
@@ -58,8 +65,8 @@ namespace Boss_Game_2._0.Screens.Bosses
                 {
                     if (playerSelection == 0)//Attack
                     {
-                        base.bossHP -= rng.Next(2, 6);
-
+                        attackBarPos = new Rectangle(700, 620, 20, 60);
+                        isAttacking = true;
                     }
                     else if (playerSelection == 1)//Heal
                     {
@@ -68,6 +75,7 @@ namespace Boss_Game_2._0.Screens.Bosses
                             return;
                         }
                         base.player.Heal();
+                        playerTurn = false;
                     }
                     else if (playerSelection == 2)
                     {
@@ -75,8 +83,34 @@ namespace Boss_Game_2._0.Screens.Bosses
                     }
                     timer = TimeSpan.Zero;
                     playerSelection = 0;
-                    playerTurn = false;
                     switchAttack();
+                }
+            }
+            else if (isAttacking)
+            {
+                attackBarPos.X -= 10;
+                if (kb.IsKeyDown(Keys.Z) && Game1.oldKb.IsKeyUp(Keys.Z))
+                {
+                    double multiplier = 0;
+                    if (timingZones[2].Contains(attackBarPos)) // Bar is FULLY within green zone
+                    {
+                        multiplier = 2.5;
+                    }
+                    else
+                    {
+                        for(int i = 0; i < timingZones.Length; i++)
+                        {
+                            if (timingZones[i].Intersects(attackBarPos))
+                            {
+                                if (i == 0 || i == 4) { multiplier = 1; }
+                                else if (i == 1 || i == 3) { multiplier = 1.5; }
+                                else { multiplier = 2; }
+                            }
+                        }
+                    }
+                    bossHP -= (int)(2 * multiplier);
+                    playerTurn = false;
+                    isAttacking = false;
                 }
             }
             else // boss turn >:)
@@ -92,7 +126,6 @@ namespace Boss_Game_2._0.Screens.Bosses
                     playerTurn = true;
                 }
             }
-
             base.Update(gameTime);
         }
 
@@ -125,16 +158,32 @@ namespace Boss_Game_2._0.Screens.Bosses
 
             if (playerTurn)
             {
-                spriteBatch.DrawString(TextureManager.Message.Font, "Attack", new Vector2(185, 625 - 20), Color.White);
-                spriteBatch.DrawString(TextureManager.Message.Font, "Heal", new Vector2(345, 625 - 20), player.GetHealsUsed() < 3 ? Color.White : Color.Gray);
-                spriteBatch.DrawString(TextureManager.Message.Font, "Flee", new Vector2(505, 625 - 20), Color.White);
-
-                spriteBatch.Draw(TextureManager.Textures.RightArrow, new Rectangle(150 + playerSelection * 160, 600 + 10, 32, 32), Color.White);
-
-                if (showSelectionUnderline)
+                if(!isAttacking)
                 {
-                    spriteBatch.Draw(TextureManager.MainMenu.SelectionUnderline, new Rectangle(185 + playerSelection * 160, 650, 136, 5), Color.White);
+                    spriteBatch.Draw(TextureManager.Textures.TextBox, new Rectangle(100, 550, 600, 200), Color.White);
+                    spriteBatch.DrawString(TextureManager.Message.Font, "Attack", new Vector2(185, 625 - 20), Color.White);
+                    spriteBatch.DrawString(TextureManager.Message.Font, "Heal", new Vector2(345, 625 - 20), player.GetHealsUsed() < 3 ? Color.White : Color.Gray);
+                    spriteBatch.DrawString(TextureManager.Message.Font, "Flee", new Vector2(505, 625 - 20), Color.White);
+
+                    spriteBatch.Draw(TextureManager.Textures.RightArrow, new Rectangle(150 + playerSelection * 160, 600 + 10, 32, 32), Color.White);
+
+                    if (showSelectionUnderline)
+                    {
+                        spriteBatch.Draw(TextureManager.MainMenu.SelectionUnderline, new Rectangle(185 + playerSelection * 160, 650, 136, 5), Color.White);
+                    }
                 }
+                else
+                {
+                    spriteBatch.Draw(TextureManager.Textures.AttackBox, new Rectangle(100, 600, 600, 100), Color.White);
+                    spriteBatch.Draw(TextureManager.Textures.SolidFill, timingZones[0], new Color(178, 46, 46));
+                    spriteBatch.Draw(TextureManager.Textures.SolidFill, timingZones[1], new Color(217, 146, 66));
+                    spriteBatch.Draw(TextureManager.Textures.SolidFill, timingZones[2], new Color(68, 186, 87));
+                    spriteBatch.Draw(TextureManager.Textures.SolidFill, timingZones[3], new Color(217, 146, 66));
+                    spriteBatch.Draw(TextureManager.Textures.SolidFill, timingZones[4], new Color(178, 46, 46));
+
+                    spriteBatch.Draw(TextureManager.Textures.SolidFill, attackBarPos, Color.White);
+                }
+                
             }
             else
             {
